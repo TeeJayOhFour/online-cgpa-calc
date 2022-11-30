@@ -15,10 +15,16 @@
         <h1>
             Welcome to the TJ's Online CGPA Calculator [v.0.1-alpha] 
         </h1>
-        Feel free to use this if the following formula is used to calculate the CGPA in your university.
-        <br>-Insert formula here-
+        Feel free to use this if the following formula is used to calculate the CGPA in your university. Use CTRL + P to save as pdf.
+        <br><img src="formula.png" alt="formula">
+        <h3>Known Issues:</h3>
+        <ul>
+            <li>You can't remove a semester once added.</li>
+            <li>You can't remove a subject once added.</li>
+            <li>Site does not store cookies for input data, meaning you'll lose everything you've entered once you reload.</li>
+        </ul>
     </main>
-    <h2>CGPA: <span id="cgpa"></span></h2>
+    <h2>CGPA: <span id="cgpa">NaN</span></h2>
     <button id="calc">Calculate CGPA</button><br>
     <button id="addSem">Add Semester</button>
     <section id="semesters">

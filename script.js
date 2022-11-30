@@ -4,6 +4,8 @@ addSem.addEventListener('click', addSemester);
 let calc = document.getElementById('calc');
 calc.addEventListener('click', fin)
 
+let subjectCount = 0;
+
 
 function addSemester() {
     let count = document.getElementsByClassName('semester');
@@ -46,23 +48,23 @@ function addSemester() {
 
 function newSub(evt) {
 
-    let subCount = document.getElementsByClassName('subject').length;
+    subjectCount++;
+
     const tab = document.getElementById("sem-" + this.id + "-sublist").createTBody();
     const row = tab.insertRow(0);
 
     const subjField = document.createElement('input')
-    subjField.id = ("subject-" + (subCount + 1));
+    subjField.id = ("subject-" + subjectCount);
     subjField.placeholder = "Click here to input course";
     subjField.className = "subject";
 
     const credField = document.createElement('input')
-    credField.id = ("credits-" + (subCount + 1));
+    credField.id = ("credits-" + subjectCount);
     credField.placeholder = "Click here to input course credit";
 
     const gradField = document.createElement('input');
-    gradField.id = ("grade-" + (subCount + 1));
+    gradField.id = ("grade-" + subjectCount);
     gradField.placeholder = "Click here to input your grade";
-
 
     row.insertCell(0).append(subjField);
     row.insertCell(1).append(credField);
@@ -79,7 +81,7 @@ function fin() {
         alert('Add atleast 1 semester.');
         return;
     }
-    if (subCount <= 0) {
+    if (subjectCount <= 0) {
         alert('Add atleast 1 subject.');
         return;
     }
@@ -87,8 +89,9 @@ function fin() {
     let totalGi = 0;
     let totalCred = 0;
 
-    for(let i = 1; i < subCount + 1; i++) {
-
+    for(let i = 1; i < subjectCount + 1; i++) {
+        
+        
         credit = document.getElementById("credits-" + i).value;
         grade = document.getElementById("grade-" + i).value;
 
