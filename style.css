@@ -1,0 +1,34 @@
+.semester {
+
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 600;
+    border: 1px solid black;
+    padding: 10px;
+    width: fit-content;
+}
+
+table, td {
+    border: 1px solid black;
+    width: 1000px;
+}
+
+thead {
+    font-weight: 600;
+}
+
+input {
+    border: none;
+    width: 98%;
+    height: 98%;
+    text-decoration-line: none;
+}
+input:focus {
+    outline: none;
+    background: rgb(241, 241, 241);
+}
+
+#cgpa {
+    color: rgb(42, 167, 79);
+    font-family:'Courier New', Courier, monospace;
+
+}
