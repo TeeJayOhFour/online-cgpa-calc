@@ -5,28 +5,45 @@ let calc = document.getElementById('calc');
 calc.addEventListener('click', fin)
 
 let subjectCount = 0;
+let exclusions = [];
 
+let semList = [{
+    id:"",
+    subList:[],
+}];
+
+// semList[0].subList.push(1,2,3,4);
+
+// console.log(semList[0])
 
 function addSemester() {
+
     let count = document.getElementsByClassName('semester');
     const id = (count.length + 1);
 
+
     const newDiv = document.createElement("div");
     const newSubBtn = document.createElement('button');
+    const removeSemBtn = document.createElement('button');
     
     newSubBtn.innerHTML = "Add Another Subject";
     newSubBtn.className = 'subBtn';
     newSubBtn.id = id;
+    newSubBtn.addEventListener('click', newSub);
 
-
-    newSubBtn.addEventListener('click', newSub, false);
-    newSubBtn.origin = id;
+    removeSemBtn.innerHTML = "Remove This Semester";
+    removeSemBtn.id = "removeSem-" + id;
+    removeSemBtn.addEventListener('click', removeSem);
+    
     
     newDiv.className = 'semester'
     newDiv.id = 'semester-' + id;
     newDiv.innerHTML =  'Semester ' + id;
-    
-    newDiv.append(newSubBtn);
+
+    //adding sem id to list
+    semList.push({id: newDiv.id, subList: []});
+
+    newDiv.append(removeSemBtn, newSubBtn);
     //creating the table.
 
     const table = document.createElement('table');
@@ -44,9 +61,16 @@ function addSemester() {
 
     const target = document.getElementById('semesters');
     target.append(newDiv);
+
+    console.log(semList);
 }
 
-function newSub(evt) {
+function newSub() {
+
+    const selectedSem = document.getElementById("sem-" + this.id + "-sublist").parentElement.id;
+
+    let selectedSemID = getIdForSem(selectedSem);
+    console.log(semList[selectedSemID]);
 
     subjectCount++;
 
@@ -56,7 +80,6 @@ function newSub(evt) {
     const subjField = document.createElement('input')
     subjField.id = ("subject-" + subjectCount);
     subjField.placeholder = "Click here to input course";
-    subjField.className = "subject";
 
     const credField = document.createElement('input')
     credField.id = ("credits-" + subjectCount);
@@ -66,15 +89,87 @@ function newSub(evt) {
     gradField.id = ("grade-" + subjectCount);
     gradField.placeholder = "Click here to input your grade";
 
+    const removeBtn = document.createElement('button');
+    removeBtn.id = ("remove-" + subjectCount);
+    removeBtn.innerHTML = "X";
+    removeBtn.addEventListener('click', removeSub);
+
     row.insertCell(0).append(subjField);
     row.insertCell(1).append(credField);
     row.insertCell(2).append(gradField);
+    row.insertCell(3).append(removeBtn);
+
+    //adding subject id to sublist within semlist.
+    semList[selectedSemID].subList.push(subjectCount);
 
 }
 
-function fin() {
+function removeSub() {
+
+    // let id = document.getElementById(this.id).parentNode.parentNode.querySelector('input').id.toString();
+    console.log(this.id);
+    let id = parseInt(this.id.toString().substring(7));
+    exclusions.push(id);
+    document.getElementById(this.id).parentNode.parentNode.remove();
+
+    console.log(exclusions);
+    let subTagCount = document.getElementsByTagName('input').length;
+
+    //resetting exclusions if there's no subjects, also resets the count.
+    if (subTagCount == 0) {
+        exclusions = []
+        subTagCount = 0;
+    }
+
+}
+
+function removeSem() {
+
+    let id = this.id.toString().substring(10);
+
+    let sem = "semester-" + id;
+    //adding exclusions for semester subjects
     
-    let subCount = document.getElementsByClassName('subject').length;
+    semList[id].subList.forEach(element => {
+        exclusions.push(element)
+    });
+
+    document.getElementById(sem).remove();
+
+    console.log("Removed Semester " + id + ", the subjects :" + semList[id].subList);
+
+    semCount = document.getElementById('semesters').childElementCount;
+    
+    //resetting semList when no more semesters are available.
+    if (semCount == 0) {
+
+        subjectCount = 0;
+        exclusions = [];
+        const temp = [{
+            id:"",
+            subList:[],
+        }];
+
+        semList = temp;
+
+    }
+}
+
+function getIdForSem(semester) {
+
+    let id = -1;
+
+    for (let index = 0; index < semList.length; index++) {
+        if (semList[index].id == semester) id = index;
+    }
+
+    return id;
+}
+
+function fin() {
+
+    let procSub = 0;
+
     let semcount = document.getElementsByClassName('semester').length;
     
     if (semcount <= 0) {
@@ -91,14 +186,19 @@ function fin() {
 
     for(let i = 1; i < subjectCount + 1; i++) {
         
+        if (!exclusions.includes(i)) {
+
+            procSub++;
+
+            credit = document.getElementById("credits-" + i).value;
+            grade = document.getElementById("grade-" + i).value;
+    
+            totalGi += (credit * grade);
+            totalCred += parseInt(credit);
+    
+            console.log(credit + " * " + grade + " += " + totalGi);
+        }
         
-        credit = document.getElementById("credits-" + i).value;
-        grade = document.getElementById("grade-" + i).value;
-
-        totalGi += (credit * grade);
-        totalCred += parseInt(credit);
-
-        console.log(credit + " * " + grade + " += " + totalGi);
     } 
 
     let cgpa = (totalGi/totalCred);
@@ -106,6 +206,6 @@ function fin() {
 
     console.log("total gi: " + totalGi);
     console.log("total cred: " + totalCred);
-
+    console.log("courses included in calculation: " + procSub);
 
 }

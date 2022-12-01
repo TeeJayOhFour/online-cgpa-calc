@@ -11,7 +11,12 @@ img {
 }
 table, td {
     border: 1px solid black;
-    width: 1000px;
+    width: 650px;
+}
+
+td:has(button) {
+    width: max-content;
+    border: none;
 }
 
 thead {
