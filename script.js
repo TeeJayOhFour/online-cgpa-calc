@@ -21,31 +21,39 @@ function addSemester() {
     let count = document.getElementsByClassName('semester');
     const id = (count.length + 1);
 
-
+    const divTitle = document.createElement("div");
+    divTitle.className = "semester-title";
+    divTitle.innerHTML =  'Semester ' + id;
+    
     const newDiv = document.createElement("div");
     const newSubBtn = document.createElement('button');
     const removeSemBtn = document.createElement('button');
-    
-    newSubBtn.innerHTML = "Add Another Subject";
+
+    const subIcon = document.createElement('ion-icon');
+    subIcon.name = "close-outline";
+
+    const plusIcon = document.createElement('ion-icon');
+    plusIcon.name = "add-outline";
+
+    newSubBtn.append(plusIcon);
     newSubBtn.className = 'subBtn';
     newSubBtn.id = id;
     newSubBtn.addEventListener('click', newSub);
 
-    removeSemBtn.innerHTML = "Remove This Semester";
+    removeSemBtn.append(subIcon);
     removeSemBtn.id = "removeSem-" + id;
     removeSemBtn.addEventListener('click', removeSem);
     
-    
     newDiv.className = 'semester'
     newDiv.id = 'semester-' + id;
-    newDiv.innerHTML =  'Semester ' + id;
 
     //adding sem id to list
     semList.push({id: newDiv.id, subList: []});
 
-    newDiv.append(removeSemBtn, newSubBtn);
+    divTitle.append(removeSemBtn);
+    newDiv.append(divTitle);
+    
     //creating the table.
-
     const table = document.createElement('table');
     table.id = ("sem-" + id + "-sublist");
     table.append(document.createElement('thead'));
@@ -56,6 +64,7 @@ function addSemester() {
     row.insertCell(0).innerHTML = "Course";
     row.insertCell(1).innerHTML = "Credits";
     row.insertCell(2).innerHTML = "Grade";
+    row.insertCell(3).appendChild(newSubBtn);
 
     newDiv.append(table);
 
@@ -67,6 +76,9 @@ function addSemester() {
 
 function newSub() {
 
+    const subIcon = document.createElement('ion-icon');
+    subIcon.name = "close-outline";
+
     const selectedSem = document.getElementById("sem-" + this.id + "-sublist").parentElement.id;
 
     let selectedSemID = getIdForSem(selectedSem);
@@ -77,21 +89,24 @@ function newSub() {
     const tab = document.getElementById("sem-" + this.id + "-sublist").createTBody();
     const row = tab.insertRow(0);
 
-    const subjField = document.createElement('input')
+    const subjField = document.createElement('textarea')
     subjField.id = ("subject-" + subjectCount);
-    subjField.placeholder = "Click here to input course";
+    subjField.placeholder = "Add course";
+    subjField.type = "text";
 
     const credField = document.createElement('input')
     credField.id = ("credits-" + subjectCount);
-    credField.placeholder = "Click here to input course credit";
+    credField.placeholder = "Add credit";
+    credField.type = "number";
 
     const gradField = document.createElement('input');
     gradField.id = ("grade-" + subjectCount);
-    gradField.placeholder = "Click here to input your grade";
+    gradField.placeholder = "Add grade";
+    gradField.type = "number";
 
     const removeBtn = document.createElement('button');
     removeBtn.id = ("remove-" + subjectCount);
-    removeBtn.innerHTML = "X";
+    removeBtn.append(subIcon);
     removeBtn.addEventListener('click', removeSub);
 
     row.insertCell(0).append(subjField);
@@ -202,6 +217,12 @@ function fin() {
     } 
 
     let cgpa = (totalGi/totalCred);
+
+    if (Number.isNaN(cgpa) || Number.isNaN(totalCred)) {
+        alert('Maybe fill up all the fields?');
+        return;
+    }
+
     document.getElementById('cgpa').innerText = cgpa;
 
     console.log("total gi: " + totalGi);
