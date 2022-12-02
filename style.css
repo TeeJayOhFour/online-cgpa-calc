@@ -1,18 +1,116 @@
-.semester {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Mono&display=swap');
+#semesters {
+    width: 100%;
+}
 
+.semester {
+    width: max-content;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-weight: 600;
     border: 1px solid black;
     padding: 10px;
-    width: fit-content;
+    width: auto;
+    max-width: 40rem;
+    min-width: fit-content;
+    margin-top: 1rem;
 }
+
+.semester-title {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 0rem;
+    padding-left: .2rem;
+    padding-right: .8rem;
+    padding-bottom: .15rem;
+    height: max-content;
+    border-radius: 8px;
+    margin-left: -.3rem;
+
+}
+
+.semester-title button, tbody td button {
+    color: rgb(226, 106, 106);
+    border: .1rem solid rgb(226, 106, 106);
+    font-size: 1.3rem;
+    background-color: transparent;
+    height: 2rem;
+    width: 2.5rem;
+    font-weight: 900;
+    /* border-radius: 8px; */
+    padding: .1rem;
+    /* margin-left: .2rem; */
+}
+
+.semester-title button {
+    margin-left: .5rem;
+    margin-top: .2rem;
+
+}
+
+td:has(textarea) {
+    width: max-content;
+    max-width: auto;
+    min-width: 1rem;
+}
+
+thead td button {
+    color: rgb(15, 119, 55);
+    border: .1rem solid rgb(15, 119, 55);
+    font-size: 1.3rem;
+    background-color: transparent;
+    height: 2rem;
+    max-width: 2.5rem;
+    font-weight: 900;
+    /* border-radius: 8px; */
+    padding: .1rem;
+    /* margin-left: .2rem; */
+    margin-top: .2rem;
+}
+
+main {
+    font-family: 'Roboto Mono', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Sans Unicode';
+}
+
+h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 900;
+}
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
 img {
     width: 200px;
 }
-table, td {
+
+table,
+td {
+    text-align: center;
     border: 1px solid black;
-    width: 650px;
+    width: auto;
+    /* max-width: 20rem;
+    min-width: 4rem; */
 }
+
+td {
+    height: auto;
+}
+
+button {
+    font-family: 'Roboto Mono', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Sans Unicode';
+    padding: 1rem;
+    width: 10rem;
+    font-weight: 900;
+    background-color: transparent;
+}
+/* @media only screen and (max-width: 900) {
+    table, td, input {
+        width: max-content;
+    }
+} */
 
 td:has(button) {
     width: max-content;
@@ -24,18 +122,65 @@ thead {
 }
 
 input {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
     border: none;
-    width: 98%;
-    height: 98%;
+    width: auto;
+    max-width: auto;
+    min-width: .2rem;
+    height: 2.5rem;
+    max-height: fit-content;
     text-decoration-line: none;
+    overflow-wrap: break-word;
 }
+
+textarea {
+    font-family: 'Open Sans', sans-serif;
+    border: none;
+    text-align: left;
+    resize: horizontal;
+    margin-right: .1rem;
+    width: auto;
+    max-width: auto;
+    min-width: 1rem;
+    text-align: center;
+}
+
+::-webkit-resizer {
+    border-right: .15rem solid black;
+    border-bottom: .15rem solid black;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    white-space: pre-line;
+    position: relative;
+}
+
+ ::-moz-placeholder {
+    /* Firefox 19+ */
+    white-space: pre-line;
+    position: relative;
+}
+
+ :-ms-input-placeholder {
+    /* IE 10+ */
+    white-space: pre-line;
+    position: relative;
+}
+
+ :-moz-placeholder {
+    /* Firefox 18- */
+    white-space: pre-line;
+    position: relative;
+}
+
 input:focus {
     outline: none;
     background: rgb(241, 241, 241);
 }
 
 #cgpa {
+    font-weight: 800;
     color: rgb(42, 167, 79);
-    font-family:'Courier New', Courier, monospace;
-
 }
