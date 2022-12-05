@@ -103,6 +103,7 @@ function newSub() {
     gradField.id = ("grade-" + subjectCount);
     gradField.placeholder = "Add grade";
     gradField.type = "number";
+    gradField.addEventListener('input', validGrade);
 
     const removeBtn = document.createElement('button');
     removeBtn.id = ("remove-" + subjectCount);
@@ -228,5 +229,18 @@ function fin() {
     console.log("total gi: " + totalGi);
     console.log("total cred: " + totalCred);
     console.log("courses included in calculation: " + procSub);
+
+}
+
+function validGrade() {
+
+    const field = document.getElementById(this.id);
+    if (field.value > 4 || field.value < 2) {
+        alert("Grade cannot be above 4 or below 2");
+        field.value = null;
+        field.style.backgroundColor = "rgba(226, 106, 106, 0.603)";
+    } else {
+        field.style.backgroundColor = "transparent";
+    }
 
 }

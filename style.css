@@ -89,10 +89,11 @@ img {
 table,
 td {
     text-align: center;
-    border: 1px solid black;
     width: auto;
     /* max-width: 20rem;
     min-width: 4rem; */
+    border: 1px solid black;
+    border-collapse: collapse;
 }
 
 td {
