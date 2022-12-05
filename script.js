@@ -104,6 +104,7 @@ function newSub() {
     gradField.placeholder = "Add grade";
     gradField.type = "number";
     gradField.addEventListener('input', validGrade);
+    gradField.min = '2';
 
     const removeBtn = document.createElement('button');
     removeBtn.id = ("remove-" + subjectCount);
